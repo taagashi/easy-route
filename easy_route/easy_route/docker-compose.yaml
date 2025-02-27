@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: easy_route_DB
+    restart: always
+
+    volumes:
+      - postgres_data:/var/lib/postgres_data/data
+    environment:
+      - POSTGRES_DB=easy_route
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=s3cr3te!
+
+    ports:
+      - 5432:5432
+
+
+  minio:
+    image: quay.io/minio/minio
+    container_name: easy_route_MINIO
+    restart: always
+    command: server /data --console-address ":9090"
+
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=s3cr3te!
+
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    
+    volumes:
+      - minio_data:/data
+
+
+volumes:
+  postgres_data:
+  minio_data:
