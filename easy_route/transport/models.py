@@ -15,7 +15,7 @@ class AbstractPerson(models.Model):
 
 
 class Driver(AbstractPerson):
-    photo = models.ImageField(upload_to='/drivers')
+    photo = models.ImageField(upload_to='drivers')
 
     class Meta:
         verbose_name = 'Driver'
@@ -23,13 +23,13 @@ class Driver(AbstractPerson):
 
     def __str__(self):
         return self.name
-    
+
 
 class Bus(models.Model):
     model = models.CharField(max_length=150)
     plate = models.CharField(max_length=7)
     capacityStudents = models.IntegerField()
-    driver = models.OneToOneField(Driver, related_name='bus', on_delete=models.CASCADE)
+    driver = models.OneToOneField('Driver', related_name='bus', on_delete=models.CASCADE)
     route = models.ForeignKey('Route', related_name='bus', on_delete=models.CASCADE)
 
     class Meta:
@@ -41,8 +41,8 @@ class Bus(models.Model):
 
 
 class Student(AbstractPerson):
-    photo = models.ImageField(upload_to='/students')
-    bus = models.ForeignKey(Bus, related_name='students', on_delete=models.CASCADE)
+    photo = models.ImageField(upload_to='students')
+    bus = models.ForeignKey('Bus', related_name='students', on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'Student'
@@ -56,7 +56,7 @@ class Institution(models.Model):
     name = models.CharField(max_length=250)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    photo = models.ImageField(upload_to='/institutions')
+    photo = models.ImageField(upload_to='institutions')
 
     class Meta:
         verbose_name = 'Institution'
@@ -69,7 +69,7 @@ class Institution(models.Model):
 class Route(models.Model):
     going = models.TimeField()
     back = models.TimeField()
-    institution = models.ForeignKey(Institution, related_name='routes', on_delete=models.CASCADE)
+    institution = models.ForeignKey('Institution', related_name='routes', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Route'
