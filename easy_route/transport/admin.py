@@ -5,7 +5,7 @@ from .models import Driver, Bus, Student, Institution, Route
 class DriverAdmin(admin.ModelAdmin):
     list_display = ['name', 'gmail', 'phone', 'photo']
 
-@admin.register((Student))
+@admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     list_display = ['name', 'gmail', 'phone', 'photo', 'bus']
 
