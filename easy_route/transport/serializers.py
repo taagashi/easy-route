@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Route, Bus, Driver, Student, Institution
+from .models import Route, Bus, Driver, Student, Institution, StudentRoute
 
 class RouteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,4 +24,9 @@ class StudentSerializer(serializers.ModelSerializer):
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
+        fields = '__all__'
+
+class StudentRouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentRoute
         fields = '__all__'

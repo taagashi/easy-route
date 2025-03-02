@@ -1,10 +1,6 @@
 from django.db import models
 from storages.backends.s3boto3 import S3Boto3Storage
 
-# Um onibus tem apenas um motorista e cada motorista tem apenas um onibus
-# Um onibus pode ter varios alunos, mas cada aluno pode ter apenas um onibus
-# Um onibus tem apenas uma rota e uma rota pode ter varios onibus
-# Uma rota tem apenas uma instituicao e uma instituicao pode ter varias rotas
 
 class AbstractPerson(models.Model):
     name = models.CharField(max_length=250)
@@ -43,7 +39,6 @@ class Bus(models.Model):
 
 class Student(AbstractPerson):
     photo = models.ImageField(upload_to='students/', storage=S3Boto3Storage())
-    bus = models.ForeignKey('Bus', related_name='students', on_delete=models.CASCADE)
     
     class Meta:
         verbose_name = 'Student'
@@ -67,10 +62,27 @@ class Institution(models.Model):
         return self.name
 
 
+class StudentRoute(models.Model):
+    student = models.ForeignKey('Student', related_name='studentRoutes', on_delete=models.CASCADE)
+    route = models.ForeignKey('Route', related_name='studentRoutes', on_delete=models.CASCADE)
+    going = models.BooleanField()
+    back = models.BooleanField()
+
+    class Meta:
+        verbose_name = 'Student Route'
+        verbose_name_plural = 'Student Routes'
+
+    def __str__(self):
+        return f'{self.student.name} na rota para {self.route.institution.name}'
+
+
 class Route(models.Model):
     going = models.TimeField()
     back = models.TimeField()
+    duration = models.IntegerField(default=0)
+    duration_measurement = models.CharField(max_length=2, choices=[('h', 'hour'), ('m', 'minute')], default='m')
     institution = models.ForeignKey('Institution', related_name='routes', on_delete=models.CASCADE)
+    
 
     class Meta:
         verbose_name = 'Route'

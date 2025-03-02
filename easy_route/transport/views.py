@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Driver, Bus, Student, Institution, Route
-from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, RouteSerializer
+from .models import Driver, Bus, Student, Institution, Route, StudentRoute
+from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, RouteSerializer, StudentRouteSerializer
 
 # realizando crud basico para testes
 
@@ -24,3 +24,7 @@ class InstitutionViewSet(viewsets.ModelViewSet):
 class RouteViewSet(viewsets.ModelViewSet):
     queryset = Route.objects.all()
     serializer_class = RouteSerializer
+
+class StudentRouteViewSet(viewsets.ModelViewSet):
+    queryset = StudentRoute.objects.all()
+    serializer_class = StudentRouteSerializer
