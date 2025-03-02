@@ -1,4 +1,5 @@
 from django.db import models
+from storages.backends.s3boto3 import S3Boto3Storage
 
 # Um onibus tem apenas um motorista e cada motorista tem apenas um onibus
 # Um onibus pode ter varios alunos, mas cada aluno pode ter apenas um onibus
@@ -15,7 +16,7 @@ class AbstractPerson(models.Model):
 
 
 class Driver(AbstractPerson):
-    photo = models.ImageField(upload_to='drivers')
+    photo = models.ImageField(upload_to='drivers/', storage=S3Boto3Storage())
 
     class Meta:
         verbose_name = 'Driver'
@@ -41,7 +42,7 @@ class Bus(models.Model):
 
 
 class Student(AbstractPerson):
-    photo = models.ImageField(upload_to='students')
+    photo = models.ImageField(upload_to='students/', storage=S3Boto3Storage())
     bus = models.ForeignKey('Bus', related_name='students', on_delete=models.CASCADE)
     
     class Meta:
@@ -56,7 +57,7 @@ class Institution(models.Model):
     name = models.CharField(max_length=250)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    photo = models.ImageField(upload_to='institutions')
+    photo = models.ImageField(upload_to='institutions/', storage=S3Boto3Storage())
 
     class Meta:
         verbose_name = 'Institution'

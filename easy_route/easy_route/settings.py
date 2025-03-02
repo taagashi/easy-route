@@ -37,9 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'rest_framework',
     'transport',
 ]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = 'admin'
+AWS_SECRET_ACCESS_KEY = 's3cr3te!'
+AWS_STORAGE_BUCKET_NAME = 'easy-route-bucket'
+AWS_S3_ENDPOINT_URL = 'http://localhost:9000'
+AWS_S3_ADDRESSING_STYLE = "path"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,13 +136,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-import os
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-AWS_ACCESS_KEY_ID = 'admin'
-AWS_SECRET_ACCESS_KEY = 's3cr3te!'
-AWS_STORAGE_BUCKET_NAME = 'easy-route-bucket'
-AWS_S3_ENDPOINT_URL = 'http://localhost:9000'
-AWS_S3_ADDRESSING_STYLE = "path"
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}"
