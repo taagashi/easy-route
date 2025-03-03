@@ -1,6 +1,6 @@
 from rest_framework import generics
 from transport.models import Student
-from transport.serializersProject.students import studentsSerializers
+from transport.serializersProject.studentsSerializer import studentsSerializers
 
 #adicionar e listar alunos
 class StudentPostListAPIView(generics.ListCreateAPIView):

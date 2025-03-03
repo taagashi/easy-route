@@ -1,6 +1,6 @@
 from rest_framework import generics
 from transport.models import Driver
-from transport.serializersProject.drivers import driversSerializers
+from transport.serializersProject.driversSerializer import driversSerializers
 
 # adicionar e listar motoristas
 class DriverPostListAPIView(generics.ListCreateAPIView):
