@@ -4,6 +4,8 @@ from .views import BusRouteAPIView, StudentRouteAPIView, StudentRouteListDeleteA
 from django.urls import path, include
 
 from transport.viewsProject.studentsView import studentsView
+from transport.viewsProject.driversView import driversView
+
 urlpatterns = [
     # cadastrar e listar alunos : FEITO
     path('students/', studentsView.StudentPostListAPIView.as_view(), name='students'),
@@ -16,12 +18,12 @@ urlpatterns = [
     # listar rotas de um aluno
     path('students/<int:pk>/routes/', StudentRouteListDeleteAPIView.as_view(), name='student_routes'),
    
-    # adicionar e listar motoristas
-    path('drivers/', DriverAPIView.as_view(), name='drivers'),
-    # listar e deletar motorista
-    path('drivers/<int:pk>/', DriverListDeleteAPIView.as_view(), name='driver_list_delete'),
-    # adicionar foto para um motorista
-    path('drivers/<int:pk>/photo/', DriverAddPhotoAPIView.as_view(), name='drivers_photo'),
+    # adicionar e listar motoristas : FEITO
+    path('drivers/', driversView.DriverPostListAPIView.as_view(), name='drivers'),
+    # listar e deletar motorista : FEITO
+    path('drivers/<int:pk>/', driversView.DriverListDeleteAPIView.as_view(), name='driver_list_delete'),
+    # adicionar foto para um motorista : FEITO
+    path('drivers/<int:pk>/photo/', driversView.DriverUpdateViewPhotoAPIView.as_view(), name='drivers_photo'),
     
     # adicionar e listar instituicoes
     path('institutions/', InstitutionAPIView.as_view(), name='institutions'),
