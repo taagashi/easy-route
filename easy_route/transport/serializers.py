@@ -56,6 +56,7 @@ class InstitutionSerializer(serializers.ModelSerializer):
             'name',
             'latitude',
             'longitude',
+            'photo',
         )
 
 class InstitutionPhotoSerializer(serializers.ModelSerializer):

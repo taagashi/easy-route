@@ -10,6 +10,11 @@ class StudentAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
+# listar e deletar aluno
+class StudentListDeleteAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
 # adicionar e listar foto de um aluno
 class StudentAddPhotoAPIView(generics.RetrieveUpdateAPIView):
     queryset = Student.objects.all()
@@ -17,6 +22,11 @@ class StudentAddPhotoAPIView(generics.RetrieveUpdateAPIView):
 
 # adicionar e listar motoristas
 class DriverAPIView(generics.ListCreateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+# listar e deletar motorista
+class DriverListDeleteAPIView(generics.RetrieveDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
 
@@ -30,27 +40,12 @@ class InstitutionAPIView(generics.ListCreateAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionSerializer
 
+# listar e deletar instituicao
+class InstitutionListDeleteAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
+
 # mudar e listar foto de uma instituicao
-class InstitutionViewPhotoAPIView(generics.RetrieveUpdateAPIView1):
+class InstitutionViewPhotoAPIView(generics.RetrieveUpdateAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionPhotoSerializer
-
-# class DriverViewSet():
-#     queryset = Driver.objects.all()
-#     serializer_class = DriverSerializer
-
-# class BusViewSet():
-#     queryset = Bus.objects.all()
-#     serializer_class = BusSerializer
-
-# class StudentViewSet():
-#     queryset = Student.objects.all()
-#     serializer_class = StudentSerializer
-
-# class RouteViewSet():
-#     queryset = Route.objects.all()
-#     serializer_class = RouteSerializer
-
-# class StudentRouteViewSet():
-#     queryset = StudentRoute.objects.all()
-#     serializer_class = StudentRouteSerializer
