@@ -1,5 +1,6 @@
 from .views import StudentAPIView, StudentAddPhotoAPIView, DriverAPIView, DriverAddPhotoAPIView, InstitutionAPIView, InstitutionViewPhotoAPIView
-from .views import StudentListDeleteAPIView, DriverListDeleteAPIView, InstitutionListDeleteAPIView
+from .views import StudentListDeleteAPIView, DriverListDeleteAPIView, InstitutionListDeleteAPIView, BusAPIView, BusListDeleteAPIView, RouteAPIView, RouteListDeleteAPIView, RouteInstitutionsAPIView
+from .views import BusRouteAPIView
 from django.urls import path, include
 
 urlpatterns = [
@@ -14,4 +15,12 @@ urlpatterns = [
     path('institutions/', InstitutionAPIView.as_view(), name='institutions'),
     path('institutions/<int:pk>/', InstitutionListDeleteAPIView.as_view(), name='institutions_list_delete'),
     path('institutions/<int:pk>/photo/', InstitutionViewPhotoAPIView.as_view(), name='institutions_photo'),
+
+    path('bus/', BusAPIView.as_view(), name='bus'),
+    path('bus/<int:pk>/', BusListDeleteAPIView.as_view(), name='bus_list_delete'),
+    path('bus/<int:pk>/routes/', BusRouteAPIView.as_view(), name='bus_route'),
+
+    path('routes/', RouteAPIView.as_view(), name='routes'),
+    path('routes/<int:pk>/', RouteListDeleteAPIView.as_view(), name='routes_list_delete'),
+    path('routes/<int:pk>/institutions/', RouteInstitutionsAPIView.as_view(), name='routes_institutions'),
 ]

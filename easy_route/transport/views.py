@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Driver, Bus, Student, Institution, Route, StudentRoute
-from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, RouteSerializer, StudentRouteSerializer
-from .serializers import StudentPhotoSerializer, DriverPhotoSerializer, InstitutionPhotoSerializer
+from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, StudentRouteSerializer
+from .serializers import StudentPhotoSerializer, DriverPhotoSerializer, InstitutionPhotoSerializer, BusGetSerializer,RouteSerializer, RouteGetSerializer, RouteInstitutionsSerializer
+from .serializers import BusRouteSerializer
 
 
 # adicionar e listar alunos
@@ -49,3 +50,33 @@ class InstitutionListDeleteAPIView(generics.RetrieveDestroyAPIView):
 class InstitutionViewPhotoAPIView(generics.RetrieveUpdateAPIView):
     queryset = Institution.objects.all()
     serializer_class = InstitutionPhotoSerializer
+
+# adicionar e listar onibus
+class BusAPIView(generics.ListCreateAPIView):
+    queryset = Bus.objects.all()
+    serializer_class = BusSerializer
+
+# listar e deletar onibus
+class BusListDeleteAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Bus.objects.all()
+    serializer_class = BusGetSerializer
+
+# adicionar e listar rotas
+class RouteAPIView(generics.ListCreateAPIView):
+    queryset = Route.objects.all()
+    serializer_class = RouteSerializer
+
+# associar onibus a uma rota
+class BusRouteAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Bus.objects.all()
+    serializer_class = BusRouteSerializer
+
+# listar e deletar rotas
+class RouteListDeleteAPIView(generics.RetrieveDestroyAPIView):
+    queryset = Route.objects.all()
+    serializer_class = RouteGetSerializer
+
+# associar rota a uma instituicao
+class RouteInstitutionsAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Route.objects.all()
+    serializer_class = RouteInstitutionsSerializer
