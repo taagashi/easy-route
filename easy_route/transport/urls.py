@@ -5,6 +5,7 @@ from django.urls import path, include
 
 from transport.viewsProject.studentsView import studentsView
 from transport.viewsProject.driversView import driversView
+from transport.viewsProject.institutionsView import institutionsView
 
 urlpatterns = [
     # cadastrar e listar alunos : FEITO
@@ -25,12 +26,12 @@ urlpatterns = [
     # adicionar foto para um motorista : FEITO
     path('drivers/<int:pk>/photo/', driversView.DriverUpdateViewPhotoAPIView.as_view(), name='drivers_photo'),
     
-    # adicionar e listar instituicoes
-    path('institutions/', InstitutionAPIView.as_view(), name='institutions'),
-    # listar e deletar instituicoes
-    path('institutions/<int:pk>/', InstitutionListDeleteAPIView.as_view(), name='institutions_list_delete'),
-    # atualizar foto de instituicao
-    path('institutions/<int:pk>/photo/', InstitutionViewPhotoAPIView.as_view(), name='institutions_photo'),
+    # adicionar e listar instituicoes : FEITO
+    path('institutions/', institutionsView.InstitutionsPostListAPIView.as_view(), name='institutions'),
+    # listar e deletar instituicoes : FEITO
+    path('institutions/<int:pk>/', institutionsView.InstitutionsListDeleteAPIView.as_view(), name='institutions_list_delete'),
+    # atualizar foto de instituicao : FEITO
+    path('institutions/<int:pk>/photo/', institutionsView.InstitutionsUpdateViewPhotoAPIView.as_view(), name='institutions_photo'),
 
     # adicionar e listar onibus
     path('bus/', BusAPIView.as_view(), name='bus'),

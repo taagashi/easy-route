@@ -5,13 +5,13 @@ from transport.serializersProject.studentsSerializer import studentsSerializers
 #adicionar e listar alunos
 class StudentPostListAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
-    serializer_class = studentsSerializers.StudentPostListSerializer
+    serializer_class = studentsSerializers.StudentsPostListSerializer
 
 
 # listar e deletar aluno
 class StudentListDeleteAPIView(generics.RetrieveDestroyAPIView):
     queryset = Student.objects.all()
-    serializer_class = studentsSerializers.StudentPostListSerializer
+    serializer_class = studentsSerializers.StudentsPostListSerializer
 
 
 # listar e adicioar foto para um aluno
