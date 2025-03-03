@@ -3,7 +3,7 @@ from rest_framework import generics
 from .models import Driver, Bus, Student, Institution, Route, StudentRoute
 from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, StudentRouteSerializer
 from .serializers import StudentPhotoSerializer, DriverPhotoSerializer, InstitutionPhotoSerializer, BusGetSerializer,RouteSerializer, RouteGetSerializer, RouteInstitutionsSerializer
-from .serializers import BusRouteSerializer
+from .serializers import BusRouteSerializer, StudentRouteListDeleteSerializer
 
 
 # adicionar e listar alunos
@@ -80,3 +80,16 @@ class RouteListDeleteAPIView(generics.RetrieveDestroyAPIView):
 class RouteInstitutionsAPIView(generics.RetrieveUpdateAPIView):
     queryset = Route.objects.all()
     serializer_class = RouteInstitutionsSerializer
+
+# associar estudante a uma rota
+class StudentRouteAPIView(generics.ListCreateAPIView):
+    queryset = StudentRoute.objects.all()
+    serializer_class = StudentRouteSerializer
+
+# listar e deletar rotas de um estudante
+class StudentRouteListDeleteAPIView(generics.ListAPIView):
+    serializer_class = StudentRouteListDeleteSerializer
+
+    def get_queryset(self):
+        student_id = self.kwargs.get('pk')
+        return StudentRoute.objects.filter(student_id=student_id)

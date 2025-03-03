@@ -112,11 +112,6 @@ class InstitutionPhotoSerializer(serializers.ModelSerializer):
             'photo',
         )
 
-class StudentRouteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StudentRoute
-        fields = '__all__'
-
 
 class BusSerializer(serializers.ModelSerializer):
     extra_kwargs = {'route': {'read_only': True}}
@@ -149,5 +144,22 @@ class BusGetSerializer(serializers.ModelSerializer):
             'plate',
             'capacityStudents',
             'driver',
+            'route',
+        )
+
+
+class StudentRouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudentRoute
+        fields = '__all__'
+
+
+class StudentRouteListDeleteSerializer(serializers.ModelSerializer):
+    student = StudentSerializer(read_only=True)
+    route = RouteSerializer(read_only=True)
+    class Meta:
+        model = StudentRoute
+        fields = (
+            'student',
             'route',
         )
