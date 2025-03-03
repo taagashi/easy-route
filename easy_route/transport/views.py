@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Driver, Bus, Student, Institution, Route, StudentRoute
 from .serializers import DriverSerializer, BusSerializer, StudentSerializer, InstitutionSerializer, RouteSerializer, StudentRouteSerializer
-from .serializers import StudentPhotoSerializer
+from .serializers import StudentPhotoSerializer, DriverPhotoSerializer, InstitutionPhotoSerializer
 
-# realizando crud basico para testes
+
 # adicionar e listar alunos
 class StudentAPIView(generics.ListCreateAPIView):
     queryset = Student.objects.all()
@@ -14,6 +14,26 @@ class StudentAPIView(generics.ListCreateAPIView):
 class StudentAddPhotoAPIView(generics.RetrieveUpdateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentPhotoSerializer
+
+# adicionar e listar motoristas
+class DriverAPIView(generics.ListCreateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+# adicionar e listar foto de um motorista
+class DriverAddPhotoAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverPhotoSerializer
+
+# adicionar e listar instituicoes
+class InstitutionAPIView(generics.ListCreateAPIView):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionSerializer
+
+# mudar e listar foto de uma instituicao
+class InstitutionViewPhotoAPIView(generics.RetrieveUpdateAPIView1):
+    queryset = Institution.objects.all()
+    serializer_class = InstitutionPhotoSerializer
 
 # class DriverViewSet():
 #     queryset = Driver.objects.all()
@@ -26,10 +46,6 @@ class StudentAddPhotoAPIView(generics.RetrieveUpdateAPIView):
 # class StudentViewSet():
 #     queryset = Student.objects.all()
 #     serializer_class = StudentSerializer
-
-# class InstitutionViewSet():
-#     queryset = Institution.objects.all()
-#     serializer_class = InstitutionSerializer
 
 # class RouteViewSet():
 #     queryset = Route.objects.all()

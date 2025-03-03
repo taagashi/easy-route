@@ -14,7 +14,21 @@ class BusSerializer(serializers.ModelSerializer):
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'gmail',
+            'phone',
+        )
+
+class DriverPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        extra_kwargs = {'name': {'read_only': True}}
+        fields = (
+            'name',
+            'photo',
+        )
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -37,7 +51,21 @@ class StudentPhotoSerializer(serializers.ModelSerializer):
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institution
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'latitude',
+            'longitude',
+        )
+
+class InstitutionPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Institution
+        extra_kwargs = {'name': {'read_only': True}}
+        fields = (
+            'name',
+            'photo',
+        )
 
 class StudentRouteSerializer(serializers.ModelSerializer):
     class Meta:
