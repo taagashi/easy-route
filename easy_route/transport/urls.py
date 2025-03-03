@@ -18,9 +18,9 @@ urlpatterns = [
 
     path('bus/', BusAPIView.as_view(), name='bus'),
     path('bus/<int:pk>/', BusListDeleteAPIView.as_view(), name='bus_list_delete'),
-    path('bus/<int:pk>/routes/', BusRouteAPIView.as_view(), name='bus_route'),
 
     path('routes/', RouteAPIView.as_view(), name='routes'),
     path('routes/<int:pk>/', RouteListDeleteAPIView.as_view(), name='routes_list_delete'),
     path('routes/<int:pk>/institutions/', RouteInstitutionsAPIView.as_view(), name='routes_institutions'),
+    path('routes/bus/<int:pk>/', BusRouteAPIView.as_view(), name='bus_route'),
 ]
