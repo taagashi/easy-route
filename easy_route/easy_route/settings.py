@@ -49,6 +49,8 @@ AWS_SECRET_ACCESS_KEY = 's3cr3te!'
 AWS_STORAGE_BUCKET_NAME = 'easy-route-bucket'
 AWS_S3_ENDPOINT_URL = 'http://localhost:9000'
 AWS_S3_ADDRESSING_STYLE = "path"
+AWS_QUERYSTRING_AUTH = False
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

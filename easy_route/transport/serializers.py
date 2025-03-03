@@ -19,7 +19,20 @@ class DriverSerializer(serializers.ModelSerializer):
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = (
+            'id',
+            'name',
+            'gmail',
+            'phone',
+        )
+
+class StudentPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        extra_kwargs = {'name': {'read_only': True}}
+        fields = (
+            'name',
+            'photo',)
 
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:

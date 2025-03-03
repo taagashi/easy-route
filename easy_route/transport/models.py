@@ -4,7 +4,7 @@ from storages.backends.s3boto3 import S3Boto3Storage
 
 class AbstractPerson(models.Model):
     name = models.CharField(max_length=250)
-    gmail = models.EmailField(max_length=250)
+    gmail = models.EmailField(max_length=250, unique=True)
     phone = models.CharField(max_length=11)
 
     class Meta:
@@ -12,7 +12,7 @@ class AbstractPerson(models.Model):
 
 
 class Driver(AbstractPerson):
-    photo = models.ImageField(upload_to='drivers/', storage=S3Boto3Storage())
+    photo = models.ImageField(upload_to='drivers/', storage=S3Boto3Storage(), null=True)
 
     class Meta:
         verbose_name = 'Driver'
@@ -38,7 +38,7 @@ class Bus(models.Model):
 
 
 class Student(AbstractPerson):
-    photo = models.ImageField(upload_to='students/', storage=S3Boto3Storage())
+    photo = models.ImageField(upload_to='students/', storage=S3Boto3Storage(), null=True)
     
     class Meta:
         verbose_name = 'Student'
