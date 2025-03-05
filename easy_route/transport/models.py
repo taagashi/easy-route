@@ -27,7 +27,7 @@ class Bus(models.Model):
     plate = models.CharField(max_length=7)
     capacityStudents = models.IntegerField()
     driver = models.OneToOneField('Driver', related_name='bus', on_delete=models.CASCADE)
-    route = models.ForeignKey('Route', related_name='bus', on_delete=models.CASCADE, null=True, blank=True)
+    route = models.ForeignKey('Route', related_name='bus', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Bus"
@@ -65,6 +65,7 @@ class Institution(models.Model):
 class StudentRoute(models.Model):
     student = models.ForeignKey('Student', related_name='studentRoutes', on_delete=models.CASCADE)
     route = models.ForeignKey('Route', related_name='studentRoutes', on_delete=models.CASCADE)
+    onbus = models.BooleanField(default=False)
     going = models.BooleanField()
     back = models.BooleanField()
 
@@ -77,11 +78,14 @@ class StudentRoute(models.Model):
 
 
 class Route(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=250)
+    confirmedStudents = models.IntegerField(default=0)
     going = models.TimeField()
     back = models.TimeField()
     duration = models.IntegerField(default=0)
     duration_measurement = models.CharField(max_length=2, choices=[('h', 'hour'), ('m', 'minute')], default='m')
-    institution = models.ForeignKey('Institution', related_name='routes', on_delete=models.CASCADE, null=True, blank=True)
+    institution = models.ForeignKey('Institution', related_name='routes', on_delete=models.CASCADE)
     
 
     class Meta:
