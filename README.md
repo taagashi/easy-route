@@ -1,9 +1,5 @@
 # easy-route
 
-para instalar todas as dependencias necessarias, execute:
-
-# easy-route
-
 Para instalar todas as dependências necessárias, execute:
 
 ```bash
