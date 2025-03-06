@@ -1,4 +1,5 @@
 #!/bin/bash
+cd easy_route
 
 set -e
 
