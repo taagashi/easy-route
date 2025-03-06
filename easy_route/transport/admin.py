@@ -19,7 +19,7 @@ class StudentRouteAdmin(admin.ModelAdmin):
 
 @admin.register(Route)
 class RouteAdmin(admin.ModelAdmin):
-    list_display = ['id', 'going', 'back', 'duration', 'duration_measurement', 'institution']
+    list_display = ['id', 'name', 'description', 'confirmedStudents', 'timeGoing', 'timeBack', 'duration', 'duration_measurement', 'is_going_started', 'is_going_finished', 'is_back_started', 'is_back_finished', 'institution']
 
 @admin.register(Bus)
 class BusAdmin(admin.ModelAdmin):

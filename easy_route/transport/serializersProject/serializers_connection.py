@@ -22,7 +22,7 @@ class RoutesGetSerializers(serializers.ModelSerializer):
     bus = BusComposeRouteSerializer(many=True)
     class Meta:
         model = Route
-        fields = ['id', 'name', 'description', 'confirmedStudents', 'going', 'back', 'duration', 'duration_measurement', 'bus', 'institution']
+        fields = ['id', 'name', 'description', 'confirmedStudents', 'timeGoing', 'timeBack', 'duration', 'duration_measurement', 'is_going_started', 'is_going_finished', 'is_back_started', 'is_back_finished', 'bus', 'institution']
 
 
 
@@ -31,7 +31,7 @@ class RoutesComposeBusSerializer(serializers.ModelSerializer):
     institution = institutionsSerializers.InstitutionsCRUDSerializer()
     class Meta:
         model = Route
-        fields = ['id', 'name', 'description', 'confirmedStudents', 'going', 'back', 'duration', 'duration_measurement', 'institution']
+        fields = ['id', 'name', 'description', 'confirmedStudents', 'timeGoing', 'timeBack', 'duration', 'duration_measurement', 'institution']
 
 
 class BusGetSerializer(serializers.ModelSerializer):

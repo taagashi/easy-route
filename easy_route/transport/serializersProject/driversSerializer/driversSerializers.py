@@ -12,3 +12,10 @@ class DriverUpdateViewPhotoSerializer(DriverPostListSerializer):
     class Meta(DriverPostListSerializer.Meta):
         extra_kwargs = {'name': {'read_only': True}}
         fields = ('id', 'name', 'photo')
+
+
+class DriverInformationRouteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Driver
+        fields = ['id', 'name', 'gmail', 'phone']
+    

@@ -31,21 +31,20 @@ class StudentRouteAddtAPIView(generics.CreateAPIView):
             assigned_bus = None
 
             for bus in buses:
-                students_going = StudentRoute.objects.filter(route=route, going=True).count()
-                students_back = StudentRoute.objects.filter(route=route, back=True).count()
+                students_going = StudentRoute.objects.filter(route=route, going=True, back=False).count()
+                students_back = StudentRoute.objects.filter(route=route, going=False, back=True).count() 
                 students_going_and_back = StudentRoute.objects.filter(route=route, going=True, back=True).count()
-
                 total_students_in_bus = students_going + students_back + students_going_and_back
 
-                if serializer.validated_data['going'] and serializer.validated_data['back']:  # Vai e volta
+                if serializer.validated_data['going'] and serializer.validated_data['back']:
                     if total_students_in_bus < bus.capacityStudents:
                         assigned_bus = bus
                         break
-                elif serializer.validated_data['going']:  # Vai apenas
+                elif serializer.validated_data['going']:
                     if students_going + students_going_and_back < bus.capacityStudents:
                         assigned_bus = bus
                         break
-                elif serializer.validated_data['back']:  # Volta apenas
+                elif serializer.validated_data['back']:
                     if students_back + students_going_and_back < bus.capacityStudents:
                         assigned_bus = bus
                         break
@@ -54,7 +53,6 @@ class StudentRouteAddtAPIView(generics.CreateAPIView):
                 return Response({'error': 'Nao ha onibus disponível com capacidade livre nesta rota'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-            
             serializer.save(student=student, route=route)
             route.confirmedStudents += 1
             route.save()
@@ -104,6 +102,7 @@ class StudentRouteViewStudentsAPIView(generics.ListAPIView):
         return students
 
 
+
 class StudentRouteUpdateAPIView(generics.UpdateAPIView):
     queryset = StudentRoute
     serializer_class = studentsRoutesSerializers.StudentRouteUpdateSerializer
@@ -119,21 +118,54 @@ class StudentRouteUpdateAPIView(generics.UpdateAPIView):
         if route_pk is None:
             return Response({'error': 'esta faltando o id da rota na requisicao'})
 
-        student = Student.objects.get(pk=student_pk)        
-        route = Route.objects.get(pk=route_pk)
-        instance = StudentRoute.objects.get(student=student, route=route)
+        try:
+            student = Student.objects.get(pk=student_pk)
+            route = Route.objects.get(pk=route_pk)
+            instance = StudentRoute.objects.get(student=student, route=route)
+        except Student.DoesNotExist:
+            return Response({'error': 'Estudante nao foi encontrado'}, status=status.HTTP_404_NOT_FOUND)
+        except Route.DoesNotExist:
+            return Response({'error': 'Rota nao foi encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        except StudentRoute.DoesNotExist:
+            return Response({'error': 'Aluno nao esta vinculado a nenhuma rota'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'error': f'Error: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         update_serializer = self.get_serializer(instance, data=request.data, partial=True)
         update_serializer.is_valid(raise_exception=True)
 
-        if not update_serializer.validated_data['going'] and not update_serializer.validated_data['back']:
+        if not update_serializer.validated_data['going'] and not update_serializer.validated_data['back']: #se nao for nenhum, deletar ele da rota
             instance.delete()
-            route.confirmedStudents = route.confirmedStudents - 1
+            route.confirmedStudents -= 1
             route.save()
             return Response({student.name: 'voce acabou de sair da rota'})
+
+        buses = route.bus.all()
+        assigned_bus = None
+
+        for bus in buses:
+                students_going = StudentRoute.objects.filter(route=route, going=True, back=False).count()
+                students_back = StudentRoute.objects.filter(route=route, going=False, back=True).count() 
+                students_going_and_back = StudentRoute.objects.filter(route=route, going=True, back=True).count()
+                total_students_in_bus = students_going + students_back + students_going_and_back
+
+                if update_serializer.validated_data['going'] and update_serializer.validated_data['back']: 
+                    if total_students_in_bus < bus.capacityStudents:
+                        assigned_bus = bus
+                        break
+                elif update_serializer.validated_data['going']: 
+                    if students_going + students_going_and_back < bus.capacityStudents:
+                        assigned_bus = bus
+                        break
+                elif update_serializer.validated_data['back']:
+                    if students_back + students_going_and_back < bus.capacityStudents:
+                        assigned_bus = bus
+                        break
+        if assigned_bus is None:
+            return Response({'error': 'Nao ha onibus disponível com capacidade livre nesta rota'}, status=status.HTTP_400_BAD_REQUEST)
+            
         update_serializer.save()
-
         response_serializer = studentsRoutesSerializers.StudentRouteListSerializer(instance)
-
         return Response(response_serializer.data, status=status.HTTP_200_OK)
+
 
