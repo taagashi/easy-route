@@ -17,9 +17,6 @@ urlpatterns = [
     # listar aluno e deletar : FEITO
     path('students/list/<int:pk>/', studentsView.StudentListDeleteAPIView.as_view(), name='students_list_delete'),
     
-    # adicionar foto para um aluno : FEITO
-    path('students/list/<int:pk>/photo/', studentsView.StudentUpdateViewPhotoAPIView.as_view(), name='student_photo'),
-    
     # cadastro de aluno em uma rota : FEITO
     path('students/list/<int:student_pk>/routes/list/<int:route_pk>/', studentsRoutesView.StudentRouteAddtAPIView.as_view(), name='student_route_list'),
     
@@ -40,11 +37,9 @@ urlpatterns = [
     # listar e deletar motorista : FEITO
     path('drivers/list/<int:pk>/', driversView.DriverListDeleteAPIView.as_view(), name='driver_list_delete'),
    
-    # adicionar foto para um motorista : FEITO
-    path('drivers/list/<int:pk>/photo/', driversView.DriverUpdateViewPhotoAPIView.as_view(), name='drivers_photo'),
-
+   
     # listar rota de um motorista : FEITO
-    path('drivers/list/<int:pk>/routes/', driversView.DriverListRoute.as_view(), name='drivers_photo'),
+    path('drivers/list/<int:pk>/routes/', driversView.DriverListRoute.as_view(), name='drivers_route'),
 
     # motorista inicia rota : FEITO
     path('drivers/list<int:pk>/routes/going/', driversView.DriverGoingRouteAPIView.as_view(), name='drivers_going'),
@@ -70,9 +65,6 @@ urlpatterns = [
     # listar e deletar instituicoes : FEITO
     path('institutions/list/<int:pk>/', institutionsView.InstitutionsListDeleteAPIView.as_view(), name='institutions_list_delete'),
    
-    # atualizar foto de instituicao : FEITO
-    path('institutions/list/<int:pk>/photo/', institutionsView.InstitutionsUpdateViewPhotoAPIView.as_view(), name='institutions_photo'),
-
    
    
     # adicionar onibus(plural) : FEITO

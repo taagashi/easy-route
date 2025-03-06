@@ -26,12 +26,7 @@ class DriverListDeleteAPIView(generics.RetrieveDestroyAPIView):
     queryset = Driver.objects.all()
     serializer_class = driversSerializers.DriverPostListSerializer
     parser_classes = [FormParser, JSONParser]
-    
-# adicionar foto para um motorista
-class DriverUpdateViewPhotoAPIView(generics.RetrieveUpdateAPIView):
-    queryset = Driver.objects.all()
-    serializer_class = driversSerializers.DriverUpdateViewPhotoSerializer
-    parser_classes = [MultiPartParser, FormParser]
+
 
 # lista rota de um motorista
 class DriverListRoute(generics.RetrieveAPIView):

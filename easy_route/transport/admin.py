@@ -3,19 +3,19 @@ from .models import Driver, Bus, Student, Institution, Route, StudentRoute
 
 @admin.register(Driver)
 class DriverAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'gmail', 'phone', 'photo']
+    list_display = ['id', 'name', 'gmail', 'phone']
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'gmail', 'phone', 'photo']
+    list_display = ['id', 'name', 'gmail', 'phone']
 
 @admin.register(Institution)
 class InstitutionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'latitude', 'longitude', 'photo']
+    list_display = ['id', 'name', 'latitude', 'longitude']
 
 @admin.register(StudentRoute)
 class StudentRouteAdmin(admin.ModelAdmin):
-    list_display = ['id', 'student', 'route', 'going', 'back']
+    list_display = ['id', 'student', 'route', 'going']
 
 @admin.register(Route)
 class RouteAdmin(admin.ModelAdmin):

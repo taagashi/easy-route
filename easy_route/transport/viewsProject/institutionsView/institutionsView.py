@@ -22,9 +22,3 @@ class InstitutionsListDeleteAPIView(generics.RetrieveDestroyAPIView):
     serializer_class = institutionsSerializers.InstitutionsCRUDSerializer
     parser_classes = [FormParser]
 
-
-# listar e adicionar trocar foto para uma instituição
-class InstitutionsUpdateViewPhotoAPIView(generics.RetrieveUpdateAPIView):
-    queryset = Institution.objects.all()
-    serializer_class = institutionsSerializers.InstitutionsUpdateListPhotoSerializer
-    parser_classes = [MultiPartParser, FormParser]

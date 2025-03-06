@@ -21,9 +21,3 @@ class StudentListDeleteAPIView(generics.RetrieveDestroyAPIView):
     serializer_class = studentsSerializers.StudentsPostListSerializer
     parser_classes = [FormParser]
 
-
-# listar e adicioar foto para um aluno
-class StudentUpdateViewPhotoAPIView(generics.RetrieveUpdateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = studentsSerializers.StudentsUpdateViewPhotoSerializer
-    parser_classes = [MultiPartParser, FormParser]

@@ -1,5 +1,4 @@
 from django.db import models
-from storages.backends.s3boto3 import S3Boto3Storage
 
 
 class AbstractPerson(models.Model):
@@ -12,7 +11,6 @@ class AbstractPerson(models.Model):
 
 
 class Driver(AbstractPerson):
-    photo = models.ImageField(upload_to='drivers/', storage=S3Boto3Storage(), null=True)
 
     class Meta:
         verbose_name = 'Driver'
@@ -38,8 +36,7 @@ class Bus(models.Model):
 
 
 class Student(AbstractPerson):
-    photo = models.ImageField(upload_to='students/', storage=S3Boto3Storage(), null=True)
-    
+
     class Meta:
         verbose_name = 'Student'
         verbose_name_plural = 'Students'
@@ -52,7 +49,6 @@ class Institution(models.Model):
     name = models.CharField(max_length=250)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    photo = models.ImageField(upload_to='institutions/', storage=S3Boto3Storage())
 
     class Meta:
         verbose_name = 'Institution'
